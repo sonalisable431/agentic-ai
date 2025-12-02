@@ -1,0 +1,318 @@
+{
+  "app": "python3 app.py",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "requirements*.txt",
+      "source.bat",
+      "**/__init__.py",
+      "python/__pycache__",
+      "tests"
+    ]
+  },
+  "context": {
+    "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
+    "@aws-cdk/core:stackRelativeExports": true,
+    "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
+    "@aws-cdk/aws-lambda:recognizeVersionProps": true,
+    "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
+    "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": true,
+    "@aws-cdk/aws-ec2:uniqueImdsv2TemplateName": true,
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/aws-iam:minimizePolicies": true,
+    "@aws-cdk/core:target-partitions": [
+      "aws",
+      "aws-cn"
+    ],
+    "dev": {
+      "appName": "esi_edl_compData_product_consumer",
+      "account": "481270058004",
+      "region": "us-east-2",
+      "environ": "dev",
+      "appPrefix": "frwk",
+      "appSetting": {
+        "network": {
+          "vpcId": "vpc-0520680d370425695",
+          "subnets": {
+            "subnetId1": "subnet-0f40c42fe70359972",
+            "subnetId2": "subnet-09de6516bf9432bfc"
+          }
+        },
+        "lambdaApp": {
+          "lambdaConfig": {
+            "name": "esi_edl_compData_product_consumer",
+            "memorySize": 300,
+            "apiVersion": "v1",
+            "description": "CompData Product Consumer",
+            "routeCategory": "custom-import",
+            "routeApp": "edl",
+            "routeType": "compData_product",
+            "runtime": "nodejs20.x",
+            "perm": [
+              {
+                "actions": [
+                  "kms:DescribeKey",
+                  "kms:ListAliases",
+                  "kms:ListKeys",
+                  "kms:Decrypt",
+                  "kms:GenerateDataKey"
+                ],
+                "resources": [
+                  "arn:aws:kms:us-east-2:481270058004:key/cf6f6749-ce63-4805-94b6-09fd66a8facb",
+                  "arn:aws:kms:us-east-2:481270058004:key/692a24df-c640-4c3f-a6da-da603b07e8fd",
+                  "arn:aws:kms:us-east-2:481270058004:key/90dd4c5e-cd15-4d0b-8c12-eb34bbcd70bc"
+                ]
+              },
+              {
+                "actions": [
+                  "secretsmanager:GetSecretValue",
+                  "secretsmanager:DescribeSecret"
+                ],
+                "resources": [
+                  "arn:aws:secretsmanager:us-east-2:481270058004:secret:esi/interface/edl/*"
+                ]
+              },
+              {
+                "actions": [
+                  "ssm:GetParametersByPath",
+                  "ssm:GetParameters",
+                  "ssm:GetParameter"
+                ],
+                "resources": [
+                  "arn:aws:ssm:us-east-2:481270058004:parameter/esi/interface/edl/*"
+                ]
+              }
+            ],
+            "layers": [
+              "/esi/interface/edl/edl-common-layer-arn",
+              "/esi/esi-common-layer-arn"
+            ],
+            "env": {
+              "NODE_ENVIRONMENT": "development",
+              "ESI_ENVIRONMENT": "dev",
+              "LOG_LEVEL": "debug"
+            }
+          }
+        }
+      }
+    },
+    "test": {
+      "appName": "esi_edl_compData_product_consumer",
+      "account": "611370861527",
+      "region": "us-east-2",
+      "environ": "test",
+      "appPrefix": "frwk",
+      "appSetting": {
+        "network": {
+          "vpcId": "vpc-02fb954019a885d46",
+          "subnets": {
+            "subnetId1": "subnet-0a911906320f4b890",
+            "subnetId2": "subnet-0cac048c646cf967f"
+          }
+        },
+        "lambdaApp": {
+          "lambdaConfig": {
+            "name": "esi_edl_compData_product_consumer",
+            "memorySize": 300,
+            "apiVersion": "v1",
+            "description": "PLN: CompData Product Consumer",
+            "routeCategory": "custom-import",
+            "routeApp": "edl",
+            "routeType": "compData_product",
+            "runtime": "nodejs20.x",
+            "perm": [
+              {
+                "actions": [
+                  "kms:DescribeKey",
+                  "kms:ListAliases",
+                  "kms:ListKeys",
+                  "kms:Decrypt",
+                  "kms:GenerateDataKey"
+                ],
+                "resources": [
+                  "arn:aws:kms:us-east-2:611370861527:key/34f309c2-e2ba-4c94-b6b2-aacc0c03803b",
+                  "arn:aws:kms:us-east-2:611370861527:key/18db4e3b-0adf-44a4-ba71-dbd8e3e63acb",
+                  "arn:aws:kms:us-east-2:611370861527:key/b477fb4a-2c72-4127-a400-c73184187f1b"
+                ]
+              },
+              {
+                "actions": [
+                  "secretsmanager:GetSecretValue",
+                  "secretsmanager:DescribeSecret"
+                ],
+                "resources": [
+                  "arn:aws:secretsmanager:us-east-2:611370861527:secret:esi/interface/edl/*"
+                ]
+              },
+              {
+                "actions": [
+                  "ssm:GetParametersByPath",
+                  "ssm:GetParameters",
+                  "ssm:GetParameter"
+                ],
+                "resources": [
+                  "arn:aws:ssm:us-east-2:611370861527:parameter/esi/interface/edl/*"
+                ]
+              }
+            ],
+            "layers": [
+              "/esi/interface/edl/edl-common-layer-arn",
+              "/esi/esi-common-layer-arn"
+            ],
+            "env": {
+              "NODE_ENVIRONMENT": "test",
+              "ESI_ENVIRONMENT": "test",
+              "LOG_LEVEL": "debug"
+            }
+          }
+        }
+      }
+    },
+    "stage": {
+      "appName": "esi_edl_compData_product_consumer",
+      "account": "343261398662",
+      "region": "us-east-2",
+      "environ": "stage",
+      "appPrefix": "frwk",
+      "appSetting": {
+        "network": {
+          "vpcId": "vpc-08873a13185c59eae",
+          "subnets": {
+            "subnetId1": "subnet-0a29e858752df2840",
+            "subnetId2": "subnet-0f890680e8cc984c9"
+          }
+        },
+        "lambdaApp": {
+          "lambdaConfig": {
+            "name": "esi_edl_compData_product_consumer",
+            "memorySize": 300,
+            "apiVersion": "v1",
+            "description": "PLN: CompData Product Consumer",
+            "routeCategory": "custom-import",
+            "routeApp": "edl",
+            "routeType": "compData_product",
+            "runtime": "nodejs20.x",
+            "perm": [
+              {
+                "actions": [
+                  "kms:DescribeKey",
+                  "kms:ListAliases",
+                  "kms:ListKeys",
+                  "kms:Decrypt",
+                  "kms:GenerateDataKey"
+                ],
+                "resources": [
+                  "arn:aws:kms:us-east-2:343261398662:key/4f0d04a0-39ad-4718-9fd8-1c329d529185",
+                  "arn:aws:kms:us-east-2:343261398662:key/5492b551-24e1-42d6-8284-d0eaaab528dc",
+                  "arn:aws:kms:us-east-2:343261398662:key/44334faa-3c1c-4c4c-a7e2-1dd618180113"
+                ]
+              },
+              {
+                "actions": [
+                  "secretsmanager:GetSecretValue",
+                  "secretsmanager:DescribeSecret"
+                ],
+                "resources": [
+                  "arn:aws:secretsmanager:us-east-2:343261398662:secret:esi/interface/edl/*"
+                ]
+              },
+              {
+                "actions": [
+                  "ssm:GetParametersByPath",
+                  "ssm:GetParameters",
+                  "ssm:GetParameter"
+                ],
+                "resources": [
+                  "arn:aws:ssm:us-east-2:343261398662:parameter/esi/interface/edl/*"
+                ]
+              }
+            ],
+            "layers": [
+              "/esi/interface/edl/edl-common-layer-arn",
+              "/esi/esi-common-layer-arn"
+            ],
+            "env": {
+              "NODE_ENVIRONMENT": "stage",
+              "ESI_ENVIRONMENT": "stage"
+            }
+          }
+        }
+      }
+    },
+    "prod": {
+      "appName": "esi_edl_compData_product_consumer",
+      "account": "355920665683",
+      "region": "us-east-2",
+      "environ": "prod",
+      "appPrefix": "frwk",
+      "appSetting": {
+        "network": {
+          "vpcId": "vpc-0e177f81948f00fd3",
+          "subnets": {
+            "subnetId1": "subnet-037b043a1b032f485",
+            "subnetId2": "subnet-056891c28c5bd7b2f"
+          }
+        },
+        "lambdaApp": {
+          "lambdaConfig": {
+            "name": "esi_edl_compData_product_consumer",
+            "memorySize": 300,
+            "apiVersion": "v1",
+            "description": "ESI CompData Product Consumer",
+            "routeCategory": "custom-import",
+            "routeApp": "edl",
+            "routeType": "compData_product",
+            "runtime": "nodejs20.x",
+            "perm": [
+              {
+                "actions": [
+                  "kms:DescribeKey",
+                  "kms:ListAliases",
+                  "kms:ListKeys",
+                  "kms:Decrypt",
+                  "kms:GenerateDataKey"
+                ],
+                "resources": [
+                  "arn:aws:kms:us-east-2:355920665683:key/220ff009-8a3d-4b12-bf9c-23fe65b6bc9d",
+                  "arn:aws:kms:us-east-2:355920665683:key/ad771687-2cc7-47dd-8c78-a3c97bac4e4e",
+                  "arn:aws:kms:us-east-2:355920665683:key/9ba7aa7c-3f1c-4d3e-a10d-133994e8601a"
+                ]
+              },
+              {
+                "actions": [
+                  "secretsmanager:GetSecretValue",
+                  "secretsmanager:DescribeSecret"
+                ],
+                "resources": [
+                  "arn:aws:secretsmanager:us-east-2:355920665683:secret:esi/interface/edl/*"
+                ]
+              },
+              {
+                "actions": [
+                  "ssm:GetParametersByPath",
+                  "ssm:GetParameters",
+                  "ssm:GetParameter"
+                ],
+                "resources": [
+                  "arn:aws:ssm:us-east-2:355920665683:parameter/esi/interface/edl/*"
+                ]
+              }
+            ],
+            "layers": [
+              "/esi/interface/edl/edl-common-layer-arn",
+              "/esi/esi-common-layer-arn"
+            ],
+            "env": {
+              "NODE_ENVIRONMENT": "production",
+              "ESI_ENVIRONMENT": "prod"
+            }
+          }
+        }
+      }
+    }
+  }
+}
