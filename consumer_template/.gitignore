@@ -1,5 +1,0 @@
-node_modules
-.webpackCache
-dist
-coverage/
-package-lock.json
