@@ -238,3 +238,5 @@ Desktop.ini
 # Temporary folders
 tmp/
 temp/
+
+./consumer_template
